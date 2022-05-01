@@ -1,0 +1,41 @@
+{
+    "name": "ddruganov/yii2-api-essentials",
+    "description": "Bunch of components to make one's development life eaisier",
+    "type": "library",
+    "require-dev": {
+        "yiisoft/yii2": "^2.0",
+        "fakerphp/faker": "^1.19",
+        "codeception/codeception": "*",
+        "codeception/module-asserts": "*",
+        "symfony/serializer": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ddruganov\\TransactionFs\\": "src/",
+            "tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ddruganov",
+            "email": "ddruganov@bk.ru"
+        }
+    ],
+    "fxp-asset": {
+        "enabled": false
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": false
+        }
+    },
+    "require": {
+        "symfony/property-access": "^6.0"
+    }
+}
