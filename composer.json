@@ -1,5 +1,5 @@
 {
-    "name": "ddruganov/transactional-file-system",
+    "name": "ddruganov/php-transactional-filesystem",
     "description": "Perform transactional file operations just like you would with a database",
     "type": "library",
     "require-dev": {

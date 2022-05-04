@@ -24,6 +24,11 @@ final class VirtualFileSystem implements FileSystemInterface
         return $this->root;
     }
 
+    public function hasChanges()
+    {
+        return count($this->root->getFiles()) || count($this->root->getSubfolders());
+    }
+
     # File
 
     public function getFileStatus(string $path): FileSystemUnitStatus

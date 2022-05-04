@@ -4,17 +4,73 @@ namespace ddruganov\TransactionalFileSystem;
 
 use ddruganov\TransactionalFileSystem\common\FileSystemInterface;
 use ddruganov\TransactionalFileSystem\common\FileSystemUnitStatus;
+use ddruganov\TransactionalFileSystem\helpers\PathHelper;
+use ddruganov\TransactionalFileSystem\vfs\VirtualFile;
 use ddruganov\TransactionalFileSystem\vfs\VirtualFileSystem;
+use ddruganov\TransactionalFileSystem\vfs\VirtualFolder;
 
 final class TransactionalFileSystem implements FileSystemInterface
 {
-    private FileSystemInterface $virtualFileSystem;
-    private FileSystemInterface $realFileSystem;
+    private VirtualFileSystem $virtualFileSystem;
+    private RealFileSystem $realFileSystem;
 
     public function __construct()
     {
         $this->virtualFileSystem = new VirtualFileSystem();
         $this->realFileSystem = new RealFileSystem();
+    }
+
+    # Transactional features
+
+    public function commit(): bool
+    {
+        if (!$this->virtualFileSystem->hasChanges()) {
+            return true;
+        }
+
+        $namelessRoot = new VirtualFolder('');
+        $namelessRoot->copyFrom($this->virtualFileSystem->getRoot());
+        return $this->commitFolder($namelessRoot);
+    }
+
+    private function commitFolder(VirtualFolder $virtualFolder, string $aggregatePath = '')
+    {
+        $aggregatePath = PathHelper::concat($aggregatePath, $virtualFolder->getName());
+
+        if ($virtualFolder->isDeleted()) {
+            return $this->realFileSystem->deleteFolder($aggregatePath);
+        }
+
+        $this->realFileSystem->getFolderStatus($aggregatePath) !== FileSystemUnitStatus::EXISTS && $this->realFileSystem->createFolder($aggregatePath);
+        foreach ($virtualFolder->getFiles() as $file) {
+            $filepath = PathHelper::concat($aggregatePath, $file->getName());
+            if (!$this->commitFile($file, $filepath)) {
+                return false;
+            }
+        }
+
+        foreach ($virtualFolder->getSubfolders() as $subfolder) {
+            if (!$this->commitFolder($subfolder, $aggregatePath)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function commitFile(VirtualFile $file, string $path)
+    {
+        if ($file->isDeleted()) {
+            return $this->realFileSystem->deleteFile($path);
+        }
+
+        return $this->realFileSystem->writeFile($path, $file->getContent());
+    }
+
+    public function rollback()
+    {
+        $this->virtualFileSystem = new VirtualFileSystem();
+        return true;
     }
 
     # File

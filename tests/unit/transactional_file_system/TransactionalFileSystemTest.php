@@ -1,9 +1,10 @@
 <?php
 
-namespace tests\unit;
+namespace tests\unit\transactional_file_system;
 
 use ddruganov\TransactionalFileSystem\common\FileSystemUnitStatus;
 use ddruganov\TransactionalFileSystem\RealFileSystem;
+use tests\unit\BaseTest;
 
 abstract class TransactionalFileSystemTest extends BaseTest
 {

@@ -1,8 +1,8 @@
 version: "3.8"
 
 services:
-  transaction.fs.php:
-    container_name: transaction.fs.php
+  transactional.filesystem.php:
+    container_name: transactional.filesystem.php
     build: ./docker/php
     volumes:
       - ./:/app

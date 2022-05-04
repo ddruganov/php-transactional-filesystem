@@ -5,7 +5,6 @@ namespace tests\unit\transactional_file_system;
 use ddruganov\TransactionalFileSystem\exceptions\FileNotFoundException;
 use ddruganov\TransactionalFileSystem\common\FileSystemUnitStatus;
 use ddruganov\TransactionalFileSystem\TransactionalFileSystem;
-use tests\unit\TransactionalFileSystemTest;
 
 final class FileTest extends TransactionalFileSystemTest
 {

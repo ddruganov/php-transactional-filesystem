@@ -27,6 +27,13 @@ final class PathHelper
         return join(DIRECTORY_SEPARATOR, $absolutes);
     }
 
+    public static function concat(string $left, string $right)
+    {
+        return self::normalize(
+            join(DIRECTORY_SEPARATOR, [$left, $right])
+        );
+    }
+
     public static function removePrefix(string $prefix, string $path)
     {
         $normalized = self::normalize($path);

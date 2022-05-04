@@ -79,6 +79,12 @@ final class VirtualFolder
         return $output;
     }
 
+    public function copyFrom(VirtualFolder $source)
+    {
+        $this->files = VirtualFileArray::from($this->files, $source->getFiles());
+        $this->subfolders = VirtualFolderArray::from($this->subfolders, $source->getSubfolders());
+    }
+
     # File
 
     public function findFile(string $path): ?VirtualFile
