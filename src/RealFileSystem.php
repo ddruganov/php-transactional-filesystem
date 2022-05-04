@@ -35,7 +35,7 @@ final class RealFileSystem implements FileSystemInterface
     public function writeFile(string $path, string $content = '', bool $append = false): bool
     {
         $path = $this->preparePath($path);
-        if (!file_exists(PathHelper::getFolder($path))) {
+        if (!file_exists($this->getFolder($path))) {
             return false;
         }
         return file_put_contents($path, $content, ($append ? FILE_APPEND : 0)) !== false;
@@ -90,6 +90,13 @@ final class RealFileSystem implements FileSystemInterface
         }
 
         return rmdir($path);
+    }
+
+    private function getFolder(string $path): string
+    {
+        return $this->preparePath(
+            PathHelper::getFolder($path)
+        );
     }
 
     private function preparePath(string $path): string

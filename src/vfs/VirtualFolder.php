@@ -177,6 +177,7 @@ final class VirtualFolder
         [$head, $tail] = PathHelper::getPathHeadAndTail($path);
 
         $subfolder = $this->getSubfolders()[$head] ?? new VirtualFolder($head);
+        $this->setSubfolder($subfolder);
 
         if ($tail) {
             return $subfolder->deleteFolder($tail);

@@ -38,7 +38,8 @@ final class TransactionalFileSystem implements FileSystemInterface
         $aggregatePath = PathHelper::concat($aggregatePath, $virtualFolder->getName());
 
         if ($virtualFolder->isDeleted()) {
-            return $this->realFileSystem->deleteFolder($aggregatePath);
+            return $this->realFileSystem->getFolderStatus($aggregatePath) !== FileSystemUnitStatus::EXISTS
+                || $this->realFileSystem->deleteFolder($aggregatePath);
         }
 
         $this->realFileSystem->getFolderStatus($aggregatePath) !== FileSystemUnitStatus::EXISTS && $this->realFileSystem->createFolder($aggregatePath);
