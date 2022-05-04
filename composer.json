@@ -1,17 +1,15 @@
 {
-    "name": "ddruganov/yii2-api-essentials",
-    "description": "Bunch of components to make one's development life eaisier",
+    "name": "ddruganov/transactional-file-system",
+    "description": "Perform transactional file operations just like you would with a database",
     "type": "library",
     "require-dev": {
-        "yiisoft/yii2": "^2.0",
-        "fakerphp/faker": "^1.19",
         "codeception/codeception": "*",
         "codeception/module-asserts": "*",
         "symfony/serializer": "^6.0"
     },
     "autoload": {
         "psr-4": {
-            "ddruganov\\TransactionFs\\": "src/",
+            "ddruganov\\TransactionalFileSystem\\": "src/",
             "tests\\": "tests/"
         }
     },
@@ -36,6 +34,7 @@
         }
     },
     "require": {
-        "symfony/property-access": "^6.0"
+        "symfony/property-access": "^6.0",
+        "ddruganov/php-typed-array": "^1.0"
     }
 }

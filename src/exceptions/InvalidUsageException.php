@@ -1,6 +1,6 @@
 <?php
 
-namespace ddruganov\TransactionFs\exceptions;
+namespace ddruganov\TransactionalFileSystem\exceptions;
 
 use Exception;
 

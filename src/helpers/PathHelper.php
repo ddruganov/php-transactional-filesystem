@@ -1,6 +1,6 @@
 <?php
 
-namespace ddruganov\TransactionFs\helpers;
+namespace ddruganov\TransactionalFileSystem\helpers;
 
 final class PathHelper
 {
@@ -47,5 +47,10 @@ final class PathHelper
     public static function getFolder(string $path)
     {
         return join(DIRECTORY_SEPARATOR, explode(DIRECTORY_SEPARATOR, $path, -1));
+    }
+
+    public static function getPathHeadAndTail(string $path)
+    {
+        return explode(DIRECTORY_SEPARATOR, $path, 2) + [1 => null];
     }
 }
